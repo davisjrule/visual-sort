@@ -1,23 +1,56 @@
+import time
 import pandas as pd
 import numpy as np
-import plotly.express as px
+import pygame
+pygame.init()
 
-n = 10   # global variable representing array size
-valRange = 10
+N = 10   # global variable representing array size
+MIN = 1
+MAX = 10
 
 # RETURNS: a randomly generated array of integers
 #          such that range = valRange and size = n
 def generate_array():
-    randArray = np.random.randint(low=1, high=valRange, size=n)
+    randArray = np.random.randint(low=MIN, high=MAX, size=N)
     return randArray
 
 
+class Visualizer: 
+    
+    BLACK = (0, 0, 0)
+    WHITE = (255, 255, 255)
+    BACKGROUND_COLOR = WHITE
+
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
+        self.array = generate_array()
+        
+        self.window = pygame.display.set_mode((width, height))
+        pygame.display.set_caption("Sorting Algorithm Visualizer")
+
+
+def draw(visualizer):
+    visualizer.window.fill(visualizer.BACKGROUND_COLOR)
+
+    pygame.display.update()
+
+
 def main():
-    array = generate_array()
-    indices = list(range(0, n))
-    fig = px.bar(x=indices, y=array).update_layout(
-                 xaxis_title="index", yaxis_title="value")
-    fig.show()
+    running = True
+    clock = pygame.time.Clock()
+
+    visualizer = Visualizer(800, 600)
+
+    while running:
+
+        draw(visualizer)
+        
+        for event in pygame.event.get():
+
+            # check for quit event
+            if event.type == pygame.QUIT:
+                running = False
 
 
 if __name__ == "__main__":
