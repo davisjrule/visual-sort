@@ -1,8 +1,4 @@
-import bubble
-import insertion
-import merge
-import quick
-import selection
+import sorts
 import time
 import math
 import pandas as pd
@@ -10,7 +6,7 @@ import numpy as np
 import pygame
 pygame.init()
 
-N = 100   # global variable representing array size
+N = 20   # global variable representing array size
 MIN = 1
 MAX = 101 # exclusive
 
@@ -71,14 +67,17 @@ def draw_values(visualizer):
 
 def main():
     running = True
+    clock = pygame.time.Clock()
+
 
     visualizer = Visualizer(800, 600)
     visualizer.create_values()
 
     while running:
+        clock.tick(20)
         draw(visualizer)
-        insertion.insertion_sort(visualizer)
-        #visualizer.create_values()
+        sorts.insertion_sort(visualizer)
+        visualizer.create_values()
         #time.sleep(0.1)
         
         for event in pygame.event.get():
