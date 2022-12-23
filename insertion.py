@@ -1,4 +1,5 @@
-from visualizer import draw_values
+from visualizer import draw
+import time
 
 def insertion_sort(visualizer):
     values = visualizer.values
@@ -14,7 +15,9 @@ def insertion_sort(visualizer):
         # place chosen element after the element just smaller than it
         values[j+1] = element
 
-        draw_values(visualizer)
+        visualizer.values = values
+        draw(visualizer)
+        time.sleep(0.1)
 
     return values
 

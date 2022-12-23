@@ -3,6 +3,7 @@ import insertion
 import merge
 import quick
 import selection
+import time
 import math
 import pandas as pd
 import numpy as np
@@ -70,15 +71,16 @@ def draw_values(visualizer):
 
 def main():
     running = True
-    clock = pygame.time.Clock()
 
     visualizer = Visualizer(800, 600)
     visualizer.create_values()
 
     while running:
-
         draw(visualizer)
-
+        insertion.insertion_sort(visualizer)
+        #visualizer.create_values()
+        #time.sleep(0.1)
+        
         for event in pygame.event.get():
 
             # check for quit event
