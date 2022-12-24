@@ -1,6 +1,5 @@
 from visualizer import draw
 import pygame
-import time
 
 
 def draw_sort(visualizer, values, colorIndices):
