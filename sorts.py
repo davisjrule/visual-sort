@@ -3,49 +3,53 @@ import pygame
 import time
 
 
-def draw_sort(visualizer, values):
+def draw_sort(visualizer, values, colorIndices):
 
-    clearBackground = (visualizer.SIDE_PADDING//2, visualizer.TOP_PADDING, 
-				  visualizer.width - visualizer.SIDE_PADDING, 
-                  visualizer.height - visualizer.TOP_PADDING)
-    
+    clearBackground = (
+        visualizer.SIDE_PADDING // 2,
+        visualizer.TOP_PADDING,
+        visualizer.width - visualizer.SIDE_PADDING,
+        visualizer.height - visualizer.TOP_PADDING,
+    )
+
     pygame.draw.rect(visualizer.window, visualizer.BACKGROUND_COLOR, clearBackground)
-    
-    #visualizer.window.fill(visualizer.BACKGROUND_COLOR)
 
-    for i, value in enumerate(values): 
+    for i, value in enumerate(values):
         x = visualizer.startingX + (i * visualizer.blockWidth)
         y = visualizer.height - ((value - visualizer.minimum) * visualizer.blockHeight)
-        color = visualizer.GRADS[i%3]
+        color = visualizer.GRADS[i % 3]
 
-        pygame.draw.rect(visualizer.window, color, (x, y, visualizer.blockWidth, visualizer.height))
-    
+        if i in colorIndices:
+            color = colorIndices[i]
+
+        pygame.draw.rect(
+            visualizer.window, color, (x, y, visualizer.blockWidth, visualizer.height)
+        )
+
     pygame.display.update()
-    
+
 
 def insertion_sort(visualizer):
     values = visualizer.values
 
     for i in range(1, len(values)):
         clock = pygame.time.Clock()
-        clock.tick(10)
 
         element = values[i]
-        j = i-1
 
-        while j >= 0 and element < values[j]:
-            values[j+1] = values[j]
-            j = j - 1
-        
-        # place chosen element after the element just smaller than it
-        values[j+1] = element
+        while True:
+            if not (i > 0 and element < values[i - 1]):
+                break
 
-        draw_sort(visualizer, values)
-        #time.sleep(0.1)
-        #pygame.display.update()
+            values[i] = values[i - 1]
+            i = i - 1
+            values[i] = element
+
+            colorIndices = {i - 1: visualizer.RED, i: visualizer.GREEN}
+            clock.tick(25)
+            draw_sort(visualizer, values, colorIndices)
 
     return values
-
 
 
 # bubble
