@@ -4,6 +4,6 @@ In this project, I built a simple sorting algorithm visualizer using the Pygame 
 
 ## Usage
 
-R - Resets the initial array of values
-I - Performs insertion sort on the generated list
+R - Resets the initial array of values <br />
+I - Performs insertion sort on the generated list <br />
 B - Performs bubble sort on the generated list

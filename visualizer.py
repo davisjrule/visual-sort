@@ -18,17 +18,17 @@ def generate_array():
 
 
 class Visualizer:
-
     BLACK = (0, 0, 0)
     WHITE = (255, 255, 255)
-    GREEN = (0, 255, 0)
-    RED = (255, 0, 0)
-    GRADS = [(128, 128, 128), (160, 160, 160), (192, 192, 192)]
+    GREEN = (30, 156, 40)
+    RED = (189, 30, 30)
+    YELLOW = (214, 214, 41)
+    GRADS = [(158, 158, 158), (190, 190, 190), (222, 222, 222)]
 
     FONT = pygame.font.SysFont("arial", 20)
     LARGE_FONT = pygame.font.SysFont("arial", 40)
 
-    BACKGROUND_COLOR = WHITE
+    BACKGROUND_COLOR = BLACK
 
     SIDE_PADDING = 100
     TOP_PADDING = 150
@@ -56,15 +56,16 @@ class Visualizer:
 def draw(visualizer):
     visualizer.window.fill(visualizer.BACKGROUND_COLOR)
 
-    controls = visualizer.FONT.render(
-        "R - Reset | A - Ascending | D - Descending", 1, visualizer.BLACK
-    )
+    # | A - Ascending | D - Descending
+    controls = visualizer.FONT.render("R - Reset", 1, visualizer.WHITE)
     visualizer.window.blit(
         controls, (visualizer.width / 2 - controls.get_width() / 2, 45)
     )
 
     sortType = visualizer.FONT.render(
-        "I - Insertion Sort | B - Bubble Sort", 1, visualizer.BLACK
+        "I - Insertion Sort   |   S - Selection Sort   |   B - Bubble Sort",
+        1,
+        visualizer.WHITE,
     )
     visualizer.window.blit(
         sortType, (visualizer.width / 2 - sortType.get_width() / 2, 75)
@@ -98,9 +99,6 @@ def main():
         clock.tick(20)
         draw(visualizer)
 
-        # visualizer.create_values()
-        # time.sleep(0.1)
-
         for event in pygame.event.get():
 
             # check for quit event
@@ -115,6 +113,9 @@ def main():
 
             if event.key == pygame.K_i:
                 sorts.insertion_sort(visualizer)
+
+            if event.key == pygame.K_s:
+                sorts.selection_sort(visualizer)
 
 
 if __name__ == "__main__":

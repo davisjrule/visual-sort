@@ -1,6 +1,10 @@
 from visualizer import draw
 import pygame
 
+FRAME_RATE = 15
+
+clock = pygame.time.Clock()
+
 
 def draw_sort(visualizer, values, colorIndices):
 
@@ -32,8 +36,6 @@ def insertion_sort(visualizer):
     values = visualizer.values
 
     for i in range(1, len(values)):
-        clock = pygame.time.Clock()
-
         element = values[i]
 
         while True:
@@ -45,8 +47,34 @@ def insertion_sort(visualizer):
             values[i] = element
 
             colorIndices = {i - 1: visualizer.RED, i: visualizer.GREEN}
-            clock.tick(25)
+            clock.tick(FRAME_RATE)
             draw_sort(visualizer, values, colorIndices)
+
+    return values
+
+
+# selection
+def selection_sort(visualizer):
+    values = visualizer.values
+
+    for i in range(len(values)):
+
+        # min element in remaining unsorted partition
+        minInd = i
+        for j in range(i + 1, len(values)):
+            if values[minInd] > values[j]:
+                minInd = j
+
+            colorIndices = {j: visualizer.RED, minInd: visualizer.YELLOW}
+            clock.tick(FRAME_RATE * 3)
+            draw_sort(visualizer, values, colorIndices)
+
+        # Swap the found minimum element with
+        # the first element
+        values[i], values[minInd] = values[minInd], values[i]
+        colorIndices = {i: visualizer.GREEN}
+        draw_sort(visualizer, values, colorIndices)
+        clock.tick(FRAME_RATE // 4)
 
     return values
 
@@ -56,5 +84,3 @@ def insertion_sort(visualizer):
 # merge
 
 # quick
-
-# selection
