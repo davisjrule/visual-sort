@@ -117,6 +117,9 @@ def main():
             if event.key == pygame.K_s:
                 sorts.selection_sort(visualizer)
 
+            if event.key == pygame.K_b:
+                sorts.bubble_sort(visualizer)
+
 
 if __name__ == "__main__":
     main()

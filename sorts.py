@@ -80,6 +80,22 @@ def selection_sort(visualizer):
 
 
 # bubble
+def bubble_sort(visualizer):
+    values = visualizer.values
+
+    for i in range(len(values) - 1):
+        for j in range(len(values) - 1 - i):
+            firstVal = values[j]
+            secondVal = values[j + 1]
+
+            if firstVal > secondVal:
+                values[j], values[j + 1] = values[j + 1], values[j]
+                colorIndices = {j: visualizer.GREEN, j + 1: visualizer.RED}
+                clock.tick(FRAME_RATE)
+                draw_sort(visualizer, values, colorIndices)
+
+    return values
+
 
 # merge
 
